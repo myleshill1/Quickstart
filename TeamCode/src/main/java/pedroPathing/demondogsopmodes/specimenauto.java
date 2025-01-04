@@ -20,8 +20,7 @@ public class specimenauto extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
 
-    /** This is the variable where we store the state of our auto.
-     * It is used by the pathUpdate method. */
+
     private int pathState;
 
     /* Create and Define Poses + Paths
