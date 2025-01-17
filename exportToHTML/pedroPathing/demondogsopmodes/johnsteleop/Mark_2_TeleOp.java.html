@@ -1,0 +1,405 @@
+<html>
+<head>
+<title>Mark_2_TeleOp.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Mark_2_TeleOp.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">pedroPathing</span><span class="s2">.</span><span class="s1">demondogsopmodes</span><span class="s2">.</span><span class="s1">johnsteleop</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">graphics</span><span class="s2">.</span><span class="s1">Color</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">preference</span><span class="s2">.</span><span class="s1">PreferenceActivity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">eventloop</span><span class="s2">.</span><span class="s1">opmode</span><span class="s2">.</span><span class="s1">LinearOpMode</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">eventloop</span><span class="s2">.</span><span class="s1">opmode</span><span class="s2">.</span><span class="s1">TeleOp</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">ColorSensor</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">DcMotor</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">DcMotorEx</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">DcMotorSimple</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">HardwareMap</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">Servo</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ElapsedTime</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">qualcomm</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">hardware</span><span class="s2">.</span><span class="s1">NormalizedColorSensor</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">firstinspires</span><span class="s2">.</span><span class="s1">ftc</span><span class="s2">.</span><span class="s1">robotcore</span><span class="s2">.</span><span class="s1">external</span><span class="s2">.</span><span class="s1">JavaUtil</span><span class="s2">;</span>
+
+<span class="s1">@TeleOp</span>
+<span class="s0">public class </span><span class="s1">Mark_2_TeleOp </span><span class="s0">extends </span><span class="s1">LinearOpMode </span><span class="s2">{</span>
+
+<span class="s3">//    private DcMotorEx slides;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">runOpMode</span><span class="s2">() </span><span class="s0">throws </span><span class="s1">InterruptedException </span><span class="s2">{</span>
+        <span class="s1">DcMotor FL </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;FL_rightodo_1&quot;</span><span class="s2">);</span>
+        <span class="s1">DcMotor BL </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;BL&quot;</span><span class="s2">);</span>
+        <span class="s1">DcMotor FR </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;FR_leftodo_0&quot;</span><span class="s2">);</span>
+        <span class="s1">DcMotor BR </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;BR_strafeodo_2&quot;</span><span class="s2">);</span>
+
+
+        <span class="s1">Servo claw </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">servo</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;claw&quot;</span><span class="s2">);</span>
+        <span class="s1">Servo rotateClaw </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">servo</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;rotateServo&quot;</span><span class="s2">);</span>
+        <span class="s1">Servo clawPivot </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">servo</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;clawPivot&quot;</span><span class="s2">);</span>
+
+        <span class="s1">Servo RArm </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">servo</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;WHATEVER WE CALL IT&quot;</span><span class="s2">);</span>
+        <span class="s1">Servo LArm </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">servo</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;WHATEVER WE CALL IT&quot;</span><span class="s2">);</span>
+
+
+        <span class="s1">DcMotor pivot </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;Pivot&quot;</span><span class="s2">);</span>
+        <span class="s1">DcMotor Rslides </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;Rslides&quot;</span><span class="s2">);</span>
+        <span class="s1">DcMotor Lslides </span><span class="s2">= </span><span class="s1">hardwareMap</span><span class="s2">.</span><span class="s1">dcMotor</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s4">&quot;Lslides&quot;</span><span class="s2">);</span>
+
+        <span class="s3">/* ====================================================================== Variables ====================================================================== */</span>
+
+        <span class="s1">ElapsedTime timer </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ElapsedTime</span><span class="s2">();</span>
+
+        <span class="s1">timer</span><span class="s2">.</span><span class="s1">startTime</span><span class="s2">();</span>
+
+        <span class="s0">double </span><span class="s1">rotation </span><span class="s2">= </span><span class="s5">0.52</span><span class="s2">;</span>
+
+
+        <span class="s3">// Zero action Boolean</span>
+        <span class="s3">// Might make this a button</span>
+
+        <span class="s0">boolean </span><span class="s1">zero</span><span class="s2">;</span>
+        <span class="s0">boolean </span><span class="s1">zeroTwo</span><span class="s2">; </span><span class="s3">// In case we need to zero from bucket differently</span>
+
+
+        <span class="s3">// first action boolean (In the order we do it)</span>
+
+        <span class="s0">boolean </span><span class="s1">goMiddle </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+        <span class="s3">// second action boolean</span>
+
+        <span class="s0">boolean </span><span class="s1">grabMiddle</span><span class="s2">;</span>
+
+        <span class="s3">// third action boolean</span>
+
+        <span class="s0">boolean </span><span class="s1">goHighBasket</span><span class="s2">;</span>
+
+        <span class="s3">// Fourth action boolean</span>
+
+        <span class="s0">boolean </span><span class="s1">scoredHighBasket</span><span class="s2">;</span>
+
+
+        <span class="s3">/* ====================================================================== Init Motors &amp; Servos ====================================================================== */</span>
+
+        <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">STOP_AND_RESET_ENCODER</span><span class="s2">);</span>
+
+        <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">STOP_AND_RESET_ENCODER</span><span class="s2">);</span>
+        <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">STOP_AND_RESET_ENCODER</span><span class="s2">);</span>
+
+        <span class="s1">clawPivot</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s5">0.35</span><span class="s2">);</span>
+
+        <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+
+        <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+        <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+
+        <span class="s1">FR</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+        <span class="s1">FL</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+        <span class="s1">BL</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+        <span class="s1">BR</span><span class="s2">.</span><span class="s1">setZeroPowerBehavior</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">ZeroPowerBehavior</span><span class="s2">.</span><span class="s1">BRAKE</span><span class="s2">);</span>
+
+
+        <span class="s3">//We need to find out what on the robot should be reversed</span>
+
+        <span class="s1">FL</span><span class="s2">.</span><span class="s1">setDirection</span><span class="s2">(</span><span class="s1">DcMotorSimple</span><span class="s2">.</span><span class="s1">Direction</span><span class="s2">.</span><span class="s1">REVERSE</span><span class="s2">);</span>
+        <span class="s1">BL</span><span class="s2">.</span><span class="s1">setDirection</span><span class="s2">(</span><span class="s1">DcMotorSimple</span><span class="s2">.</span><span class="s1">Direction</span><span class="s2">.</span><span class="s1">REVERSE</span><span class="s2">);</span>
+
+
+        <span class="s1">waitForStart</span><span class="s2">();</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">isStopRequested</span><span class="s2">()) </span><span class="s0">return</span><span class="s2">;</span>
+
+        <span class="s0">while </span><span class="s2">(</span><span class="s1">opModeIsActive</span><span class="s2">()) {</span>
+
+
+            <span class="s3">/* ====================================================================== Drive ====================================================================== */</span>
+
+            <span class="s0">double </span><span class="s1">y </span><span class="s2">= -</span><span class="s1">gamepad1</span><span class="s2">.</span><span class="s1">left_stick_y</span><span class="s2">; </span><span class="s3">// Remember, Y stick value is reversed</span>
+            <span class="s0">double </span><span class="s1">x </span><span class="s2">= </span><span class="s1">gamepad1</span><span class="s2">.</span><span class="s1">left_stick_x </span><span class="s2">* </span><span class="s5">1.1</span><span class="s2">; </span><span class="s3">// Counteract imperfect strafing</span>
+            <span class="s0">double </span><span class="s1">rx </span><span class="s2">= </span><span class="s1">gamepad1</span><span class="s2">.</span><span class="s1">right_stick_x</span><span class="s2">;</span>
+
+            <span class="s3">// Denominator is the largest motor power (absolute value) or 1</span>
+            <span class="s3">// This ensures all the powers maintain the same ratio,</span>
+            <span class="s3">// but only if at least one is out of the range [-1, 1]</span>
+            <span class="s0">double </span><span class="s1">denominator </span><span class="s2">= </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s1">Math</span><span class="s2">.</span><span class="s1">abs</span><span class="s2">(</span><span class="s1">y</span><span class="s2">) + </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">abs</span><span class="s2">(</span><span class="s1">x</span><span class="s2">) + </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">abs</span><span class="s2">(</span><span class="s1">rx</span><span class="s2">), </span><span class="s5">1</span><span class="s2">);</span>
+            <span class="s0">double </span><span class="s1">frontLeftPower </span><span class="s2">= (</span><span class="s1">y </span><span class="s2">+ </span><span class="s1">x </span><span class="s2">+ </span><span class="s1">rx</span><span class="s2">) / </span><span class="s1">denominator</span><span class="s2">;</span>
+            <span class="s0">double </span><span class="s1">backLeftPower </span><span class="s2">= (</span><span class="s1">y </span><span class="s2">- </span><span class="s1">x </span><span class="s2">+ </span><span class="s1">rx</span><span class="s2">) / </span><span class="s1">denominator</span><span class="s2">;</span>
+            <span class="s0">double </span><span class="s1">frontRightPower </span><span class="s2">= (</span><span class="s1">y </span><span class="s2">- </span><span class="s1">x </span><span class="s2">- </span><span class="s1">rx</span><span class="s2">) / </span><span class="s1">denominator</span><span class="s2">;</span>
+            <span class="s0">double </span><span class="s1">backRightPower </span><span class="s2">= (</span><span class="s1">y </span><span class="s2">+ </span><span class="s1">x </span><span class="s2">- </span><span class="s1">rx</span><span class="s2">) / </span><span class="s1">denominator</span><span class="s2">;</span>
+
+            <span class="s1">FL</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s1">frontLeftPower</span><span class="s2">);</span>
+            <span class="s1">BL</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s1">backLeftPower</span><span class="s2">);</span>
+            <span class="s1">FR</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s1">frontRightPower</span><span class="s2">);</span>
+            <span class="s1">BR</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s1">backRightPower</span><span class="s2">);</span>
+
+
+            <span class="s3">/* ====================================================================== Rotating Claw Parameters / Manual stuff ====================================================================== */</span>
+
+            <span class="s1">rotateClaw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s1">rotation</span><span class="s2">);</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">rotation </span><span class="s2">!= </span><span class="s1">rotateClaw</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">()){</span>
+
+                <span class="s1">rotateClaw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s1">rotation</span><span class="s2">);</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">rotation </span><span class="s2">&gt;= </span><span class="s5">1 </span><span class="s2">&amp;&amp; </span><span class="s1">rotation </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">){</span>
+
+                <span class="s1">rotation </span><span class="s2">= </span><span class="s5">1</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">else if </span><span class="s2">(</span><span class="s1">rotation </span><span class="s2">&lt;= </span><span class="s5">0</span><span class="s2">){</span>
+
+                <span class="s1">rotation </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">left_stick_x </span><span class="s2">&gt; </span><span class="s5">0.5</span><span class="s2">){</span>
+
+                <span class="s1">rotation </span><span class="s2">+= </span><span class="s5">0.02</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(-</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">left_stick_x </span><span class="s2">&gt; </span><span class="s5">0.5</span><span class="s2">){</span>
+
+                <span class="s1">rotation </span><span class="s2">-= </span><span class="s5">0.02</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s3">//EMERGENCY MANUAL CLAW</span>
+
+            <span class="s3">//open</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">dpad_left</span><span class="s2">){</span>
+
+                <span class="s1">claw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s5">0.4</span><span class="s2">);</span>
+
+            <span class="s2">}</span>
+
+            <span class="s3">//close</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">dpad_right</span><span class="s2">){</span>
+
+                <span class="s1">claw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s5">0.9</span><span class="s2">);</span>
+
+            <span class="s2">}</span>
+
+
+            <span class="s3">/* ====================================================================== Go to middle ====================================================================== */</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">a</span><span class="s2">){</span>
+
+                <span class="s3">// Pivot has to go first</span>
+                <span class="s3">// then slides</span>
+                <span class="s3">// then arm &amp; claw pivot</span>
+
+                <span class="s1">claw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s5">0.4</span><span class="s2">);</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">( </span><span class="s3">/* find pos */ </span><span class="s2">);</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+                <span class="s1">goMiddle </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+                <span class="s1">timer</span><span class="s2">.</span><span class="s1">reset</span><span class="s2">();</span>
+
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">1 </span><span class="s2">&amp;&amp; </span><span class="s1">goMiddle </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">1.5 </span><span class="s2">&amp;&amp; </span><span class="s1">goMiddle </span><span class="s2">== </span><span class="s0">true</span><span class="s2">{</span>
+
+                <span class="s3">// Find a mid point for the Arm so arm hovers over samples</span>
+
+                <span class="s1">RArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">LArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">clawPivot</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">rotateClaw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">goMiddle </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s3">/* ====================================================================== Grab from middle ====================================================================== */</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">b</span><span class="s2">){</span>
+
+                <span class="s3">//Make the Arm go fully on the sample</span>
+
+                <span class="s1">RArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">();</span>
+                <span class="s1">LArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">();</span>
+
+                <span class="s1">grabMiddle </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+                <span class="s1">timer</span><span class="s2">.</span><span class="s1">reset</span><span class="s2">();</span>
+
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">0.6 </span><span class="s2">&amp;&amp; </span><span class="s1">grabMiddle </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+                <span class="s1">claw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s5">0.9</span><span class="s2">);</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">1.5 </span><span class="s2">&amp;&amp; </span><span class="s1">grabMiddle </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+                <span class="s1">RArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">LArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">;</span>
+
+                <span class="s1">grabMiddle </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+                <span class="s1">zero </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">2 </span><span class="s2">&amp;&amp; </span><span class="s1">zero </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+                <span class="s1">zero </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+
+            <span class="s2">}</span>
+
+            <span class="s3">/* ====================================================================== Going to High Basket  ====================================================================== */</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">y</span><span class="s2">){</span>
+
+                <span class="s3">// pivot and slides go up</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s5">0</span><span class="s2">); </span><span class="s3">// pivot is up on init (slides vertical) meaning this is the 0</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">pivot</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+                <span class="s1">goHighBasket </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+                <span class="s1">timer</span><span class="s2">.</span><span class="s1">reset</span><span class="s2">();</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">1 </span><span class="s2">&amp;&amp; </span><span class="s1">goHighBasket </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+                <span class="s1">RArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">LArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">clawPivot</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">goHighBasket </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s3">/* ====================================================================== Scored on High Basket  ====================================================================== */</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gamepad2</span><span class="s2">.</span><span class="s1">x</span><span class="s2">){</span>
+
+                <span class="s1">claw</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">timer</span><span class="s2">.</span><span class="s1">reset</span><span class="s2">();</span>
+
+                <span class="s1">scoredHighBasket </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">0.5 </span><span class="s2">&amp;&amp; </span><span class="s1">scoredHighBasket </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+
+                <span class="s1">RArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">LArm</span><span class="s2">.</span><span class="s1">setPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">scoredHighBasket </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+                <span class="s1">zeroTwo </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">timer</span><span class="s2">.</span><span class="s1">seconds</span><span class="s2">() &gt;= </span><span class="s5">1 </span><span class="s2">&amp;&amp; </span><span class="s1">zeroTwo </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setTargetPosition</span><span class="s2">(</span><span class="s3">/* find pos */</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setPower</span><span class="s2">(</span><span class="s5">1</span><span class="s2">);</span>
+
+                <span class="s1">Rslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+                <span class="s1">Lslides</span><span class="s2">.</span><span class="s1">setMode</span><span class="s2">(</span><span class="s1">DcMotor</span><span class="s2">.</span><span class="s1">RunMode</span><span class="s2">.</span><span class="s1">RUN_TO_POSITION</span><span class="s2">);</span>
+
+
+                <span class="s1">zeroTwo </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+
+            <span class="s2">}</span>
+
+
+
+
+            <span class="s3">/* ====================================================================== Telemetry  ====================================================================== */</span>
+
+
+
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;pivot&quot;</span><span class="s2">, </span><span class="s1">pivot</span><span class="s2">.</span><span class="s1">getCurrentPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Lslides&quot;</span><span class="s2">, </span><span class="s1">Lslides</span><span class="s2">.</span><span class="s1">getCurrentPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Rslides&quot;</span><span class="s2">, </span><span class="s1">Rslides</span><span class="s2">.</span><span class="s1">getCurrentPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Claw Pivot&quot;</span><span class="s2">, </span><span class="s1">clawPivot</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Rotate claw&quot; </span><span class="s2">, </span><span class="s1">rotateClaw</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Rotation value&quot; </span><span class="s2">, </span><span class="s1">rotation</span><span class="s2">);</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;claw&quot; </span><span class="s2">, </span><span class="s1">claw</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Right Arm&quot; </span><span class="s2">, </span><span class="s1">RArm</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">());</span>
+            <span class="s1">telemetry</span><span class="s2">.</span><span class="s1">addData</span><span class="s2">(</span><span class="s4">&quot;Left Arm&quot; </span><span class="s2">, </span><span class="s1">LArm</span><span class="s2">.</span><span class="s1">getPosition</span><span class="s2">());</span>
+
+
+            <span class="s1">updateTelemetry</span><span class="s2">(</span><span class="s1">telemetry</span><span class="s2">);</span>
+
+
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>
