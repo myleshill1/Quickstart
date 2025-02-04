@@ -25,9 +25,10 @@ public class PID_Slides extends OpMode {
 
     public static int slidesTarget = 0;
 
-    private final double ticks_in_degree = 145.1 / 180;
+    private final double ticks_in_degree = 	103.8 / 180;
     private DcMotorEx Rslide;
     private DcMotorEx Lslide;
+
 
     @Override
     public void init() {

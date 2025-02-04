@@ -113,8 +113,6 @@ public class PID_M2TeleOP extends LinearOpMode {
 
             double power = pid + ff;
 
-
-
             pivot.setPower(power);
 
             /*================================= Drive =================================*/
@@ -281,9 +279,7 @@ public class PID_M2TeleOP extends LinearOpMode {
                 RArm.setPosition(0.1);
                 LArm.setPosition(0.1);
 
-                pivot.setTargetPosition(0);
-                pivot.setPower(1);
-                pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                pivotTarget = 0;
 
                 Rslides.setTargetPosition(0);
                 Lslides.setTargetPosition(0);
@@ -319,8 +315,8 @@ public class PID_M2TeleOP extends LinearOpMode {
 
             if (gamepad2.x) {
 
-                Rslides.setTargetPosition(1100);
-                Lslides.setTargetPosition(1100);
+                Rslides.setTargetPosition(1200);
+                Lslides.setTargetPosition(1200);
                 Rslides.setPower(1);
                 Lslides.setPower(1);
                 Rslides.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -331,13 +327,13 @@ public class PID_M2TeleOP extends LinearOpMode {
 
             }
 
-            if(timer.seconds() >= 1 && score == true){
+            if(timer.seconds() >= 0.8 && score == true){
 
                 claw.setPosition(0);
 
             }
 
-            if(timer.seconds() >= 1.2 && score == true){
+            if(timer.seconds() >= 1.5 && score == true){
 
                 Rslides.setTargetPosition(0);
                 Lslides.setTargetPosition(0);
