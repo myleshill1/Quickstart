@@ -9,7 +9,7 @@ public class Subsystem extends Mark2_MAIN {
 
     public static int PivotNeutral = 0;
 
-    public int PivotMiddle = -700;
+    public static int PivotMiddle = -670;
 
     public static int SlidesNeutral = 0;
 

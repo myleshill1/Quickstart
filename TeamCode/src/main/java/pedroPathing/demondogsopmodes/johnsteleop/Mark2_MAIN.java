@@ -318,8 +318,8 @@ public class Mark2_MAIN extends LinearOpMode {
 
                         clawPivot.setPosition(0.4);
 
-                        Rslides.setTargetPosition(2100); // find the max our slides go
-                        Lslides.setTargetPosition(2100); // find the max our slides go
+                        Rslides.setTargetPosition(1600); // find the max our slides go
+                        Lslides.setTargetPosition(1600); // find the max our slides go
                         Rslides.setPower(1);
                         Lslides.setPower(1);
                         Rslides.setMode(DcMotor.RunMode.RUN_TO_POSITION);

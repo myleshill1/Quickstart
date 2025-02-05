@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import pedroPathing.demondogsopmodes.johnsteleop.Subsystem;
 
 @TeleOp
 public class PID_M2TeleOP extends LinearOpMode {
@@ -21,7 +22,10 @@ public class PID_M2TeleOP extends LinearOpMode {
     public static int pivotTarget = 0;
 
     private final double Pivot_ticks_in_degree = 1425.1 / 180;
+
     private DcMotorEx pivot;
+
+
 
 
     @Override
@@ -195,7 +199,7 @@ public class PID_M2TeleOP extends LinearOpMode {
 
                 claw.setPosition(0);
 
-                pivotTarget = -670;
+                pivotTarget = -665;
 
                 timer.reset();
                 goMiddle = true;
@@ -204,8 +208,8 @@ public class PID_M2TeleOP extends LinearOpMode {
 
             if (timer.seconds() >= 1.5 && goMiddle == true) {
 
-                Rslides.setTargetPosition(1000);
-                Lslides.setTargetPosition(1000);
+                Rslides.setTargetPosition(950);
+                Lslides.setTargetPosition(950);
                 Rslides.setPower(1);
                 Lslides.setPower(1);
                 Rslides.setMode(DcMotor.RunMode.RUN_TO_POSITION);
