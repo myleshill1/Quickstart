@@ -20,7 +20,7 @@ public class Slides extends Subsystem {
     // USER CODE
     public MotorGroup motor;
     public MotorEx Lmotor, Rmotor;
-    public static double sp = 0.035, si = 0.001, sd = 0.0000001, tolerance = 3;
+    public static double sp = 0.035, si = 0.001, sd = 0.0000001, tolerance = 0;
     public PIDControllerWrapper controller = new PIDControllerWrapper(new PIDController(sp,si,sd),tolerance);
 
     public String Rslides = "RSlides";
